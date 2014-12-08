@@ -25,7 +25,8 @@ typedef SSIZE_T ssize_t;
 #define MAX_PACKET_SIZE 1024
 #define LOGIN_UNIQUE_KEY 0x10204080
 #define PORT 9999
-#define SERVER_IP "125.209.193.18"
+// #define SERVER_IP "125.209.193.18"
+#define SERVER_IP "127.0.0.1"
 #define LOGIN_MAX_TRY_COUNT 10
 
 typedef unsigned int ChannelNumber;

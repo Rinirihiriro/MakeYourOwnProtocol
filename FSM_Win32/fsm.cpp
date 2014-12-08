@@ -46,7 +46,7 @@ struct p_event {                // Event Structure
 enum proto_state c_state = wait_CON;         // Initial State
 volatile int timedout = 0;
 
-HANDLE hTimer;
+static HANDLE hTimer;
 
 static void CALLBACK timer_handler(LPVOID lpArg, DWORD dwTimerLowValue, DWORD dwTimerHighValue)
 {
@@ -57,6 +57,11 @@ static void CALLBACK timer_handler(LPVOID lpArg, DWORD dwTimerLowValue, DWORD dw
 static void timer_init(void)
 {
 	hTimer = CreateWaitableTimer(NULL, FALSE, NULL);
+}
+
+static void timer_deinit(void)
+{
+	CloseHandle(hTimer);
 }
 
 void set_timer(int sec)
@@ -143,7 +148,8 @@ loop:
 	// Check if there is user command
 	if (!_kbhit()) {
 		// Check if timer is timed-out
-		if(timedout) {
+		SleepEx(0, TRUE);
+		if (timedout) {
 			timedout = 0;
 			event.event = TIMEOUT;
 		} else {
@@ -204,6 +210,7 @@ void Protocol_Loop(void)
 		/* Step 2: Set Next State */
 		c_state = p_FSM[c_state][eventp->event].next_state;
 	}
+	timer_deinit();
 }
 
 int main(int argc, char *argv[])

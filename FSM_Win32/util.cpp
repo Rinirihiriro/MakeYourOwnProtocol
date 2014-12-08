@@ -62,7 +62,7 @@ int Login(unsigned int channel, unsigned int id, int lossRate)
 			return SOCKET_ERROR;
 		}
 		
-		Sleep(1);
+		Sleep(10);
 		
 		ssize_t n = recvfrom(sockfd, buf, MAX_PACKET_SIZE, 0, NULL, NULL);
 		
