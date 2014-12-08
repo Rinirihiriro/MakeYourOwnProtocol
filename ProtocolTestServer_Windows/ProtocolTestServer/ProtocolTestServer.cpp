@@ -59,7 +59,7 @@ int main(int argc, char **argv)
 			if (ret == true)
 			{
 				ChannelMananger::GetInstance()->SetPacketMissingRate(packet.m_ChannelNumber, packet.m_RateOfMissing);
-				printf("Packet Rate : Channel : %d - %d%%", packet.m_ChannelNumber, ChannelMananger::GetInstance()->GetPacketMissingRate(packet.m_ChannelNumber));
+				printf("Packet Rate : Channel : %d - %d%%\n", packet.m_ChannelNumber, ChannelMananger::GetInstance()->GetPacketMissingRate(packet.m_ChannelNumber));
 				printf("login Success! CI : %d/%d\n", packet.m_ChannelNumber, packet.m_ID);
 				sendto(sockfd, buf, sizeof(LoginPacket), 0, (struct sockaddr *)&clientaddr, clilen);
 			}
