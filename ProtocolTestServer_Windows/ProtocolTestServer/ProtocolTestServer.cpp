@@ -86,7 +86,7 @@ int main(int argc, char **argv)
 			printf("\n");
 
 			int randvalue = rand() % 100;
-			if (ChannelMananger::GetInstance()->GetPacketMissingRate(header.m_ChannelNumber) > randvalue)
+			if (ChannelMananger::GetInstance()->GetPacketMissingRate(header.m_ChannelNumber) <= randvalue)
 			{
 				auto users = ChannelMananger::GetInstance()->GetChannelUsers(header.m_ChannelNumber);
 				for (auto it = users.first; it != users.second; it++)
