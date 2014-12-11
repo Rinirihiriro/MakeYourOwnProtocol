@@ -66,11 +66,21 @@ static void timer_deinit(void)
 
 void set_timer(int sec)
 {
+	if (sec <= 0) {
+		stop_timer();
+		return;
+	}
 	LARGE_INTEGER interval = { 0, };
 	interval.QuadPart = -sec * 10000000;
 	timedout = 0;
 	SetWaitableTimer(hTimer, &interval, 0, timer_handler, NULL, TRUE);
 }
+
+void stop_timer()
+{
+	CancelWaitableTimer(hTimer);
+}
+
 void send_packet(int flag, void *p, int size)
 {
 	packet pkt;
@@ -85,7 +95,7 @@ void send_packet(int flag, void *p, int size)
 
 static void report_connect(void *p)
 {
-	set_timer(0);           // Stop Timer
+	stop_timer();           // Stop Timer
 	printf("Connected\n");
 }
 
